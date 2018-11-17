@@ -1,0 +1,13 @@
+type Skill {
+  _id: ID
+  title: String
+}
+
+input SkillInput {
+  _id: ID
+  title: String
+}
+
+type Query {
+  skills: [Skill]
+}

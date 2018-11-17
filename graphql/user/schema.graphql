@@ -1,0 +1,52 @@
+type User {
+  _id: ID
+  username: String
+  name: String
+  profilePic: String
+  email: String
+  description: String
+  address: String
+  phone: String
+  job: String
+  isMentor: Boolean
+  socialMedia: SocialMedia
+  education: String
+  skills: [Skill]
+}
+
+input UserInput {
+  username: String!
+  name: String!
+  password: String!
+  address: String!
+  phone: String!
+}
+
+input UserUpdate {
+  username: String
+  name: String
+  profilePic: String
+  email: String
+  description: String
+  address: String
+  phone: String
+  job: String
+  isMentor: Boolean
+  socialMedia: SocialMediaInput
+  education: String
+  skills: [SkillInput]
+}
+
+type Query {
+  users: [User]
+  user(_id: ID!): User
+  profile: User
+  login(username: String!, password: String!): String
+  search(skill: SkillInput): [User]
+}
+
+type Mutation {
+  createUser(user: UserInput!): User
+  deleteUser: User
+  updateUser(user: UserUpdate!): User
+}

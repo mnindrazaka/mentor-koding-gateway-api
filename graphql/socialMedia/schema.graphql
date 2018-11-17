@@ -1,0 +1,13 @@
+type SocialMedia {
+  github: String
+  linkedin: String
+  facebook: String
+  instagram: String
+}
+
+input SocialMediaInput {
+  github: String
+  linkedin: String
+  facebook: String
+  instagram: String
+}
