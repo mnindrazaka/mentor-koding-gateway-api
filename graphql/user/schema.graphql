@@ -11,7 +11,7 @@ type User {
   isMentor: Boolean
   socialMedia: SocialMedia
   education: String
-  skills: [Skill]
+  skills: [String]
 }
 
 input UserInput {
@@ -34,7 +34,7 @@ input UserUpdate {
   isMentor: Boolean
   socialMedia: SocialMediaInput
   education: String
-  skills: [SkillInput]
+  skills: [String]
 }
 
 type Query {
@@ -42,7 +42,7 @@ type Query {
   user(_id: ID!): User
   profile: User
   login(username: String!, password: String!): String
-  search(skill: SkillInput): [User]
+  search(skill: String!): [User]
 }
 
 type Mutation {
