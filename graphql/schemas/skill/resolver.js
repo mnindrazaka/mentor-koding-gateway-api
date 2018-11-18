@@ -1,5 +1,5 @@
 const axios = require('axios')
-const { skillApi } = require('../../config/api')
+const { skillApi } = require('../../../config/api')
 
 module.exports.resolver = {
   Query: {

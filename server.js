@@ -1,17 +1,23 @@
 const express = require('express')
 const app = express()
-const { ApolloServer } = require('apollo-server-express')
-const glue = require('schemaglue')
+const cors = require('cors')
+const verifyToken = require('./middlewares/verifyToken')
 
-const { schema, resolver } = glue('./graphql')
-const server = new ApolloServer({
-  typeDefs: schema,
-  resolvers: resolver
-})
-
+app.use(cors())
 app.use(express.json())
-server.applyMiddleware({ app, path: '/graphql' })
-
+app.use(verifyToken)
 app.listen(3000, () => {
   console.log('server listening')
 })
+
+const schemaglue = require('schemaglue')
+const { ApolloServer } = require('apollo-server-express')
+
+const { schema, resolver } = schemaglue('./graphql/schemas')
+const context = require('./graphql/context')
+const server = new ApolloServer({
+  typeDefs: schema,
+  resolvers: resolver,
+  context
+})
+server.applyMiddleware({ app, path: '/graphql' })
