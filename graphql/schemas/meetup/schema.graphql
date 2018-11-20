@@ -1,0 +1,40 @@
+type Meetup {
+  _id: ID
+  topic: String
+  mentor: User
+  student: User
+  datetime: String
+  lat: Float
+  lng: Float
+  detailPlace: String
+  isConfirmed: Boolean
+  isFinished: Boolean
+  rating: Int
+  review: String
+}
+
+input MeetupInput {
+  topic: String!
+  mentorId: ID!
+  datetime: String!
+  lat: Float!
+  lng: Float!
+  detailPlace: String!
+}
+
+input MeetupUpdate {
+  isConfirmed: Boolean
+  isFinished: Boolean
+  rating: Int
+  review: String
+}
+
+type Query {
+  meetups(isConfirmed: Boolean!): [Meetup]
+  meetup(_id: ID!): Meetup
+}
+
+type Mutation {
+  createMeetup(meetup: MeetupInput!): Meetup
+  updateMeetup(meetup: MeetupUpdate!, _id: ID!): Meetup
+}
