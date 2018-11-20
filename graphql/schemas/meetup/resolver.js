@@ -15,15 +15,16 @@ function filterMeetups(meetups, isConfirmed, userId) {
   })
 }
 
-function getUserData(meetups) {
+function includeUserData(meetups) {
   return meetups.map(async meetup => {
-    const student = (await axios.get(`${userApi}/user/${meetup.studentId}`))
-      .data
-    const mentor = (await axios.get(`${userApi}/user/${meetup.mentorId}`)).data
-    meetup.student = student
-    meetup.mentor = mentor
+    meetup.student = await getUser(meetup.studentId)
+    meetup.mentor = await getUser(meetup.mentorId)
     return meetup
   })
+}
+
+async function getUser(userId) {
+  return (await axios.get(`${userApi}/user/${userId}`)).data
 }
 
 module.exports.resolver = {
@@ -32,7 +33,7 @@ module.exports.resolver = {
       if (context.data) {
         const { data } = await axios.get(`${meetupApi}/meetup`)
         const filteredMeetup = filterMeetups(data, isConfirmed, context.data)
-        return getUserData(filteredMeetup)
+        return includeUserData(filteredMeetup)
       } else {
         throw new AuthenticationError('Must Authenticate')
       }
@@ -40,7 +41,7 @@ module.exports.resolver = {
     meetup: async (parent, { _id }, context) => {
       if (context.data) {
         const { data } = await axios.get(`${meetupApi}/meetup/${_id}`)
-        return getUserData(data)
+        return includeUserData(data)
       } else {
         throw new AuthenticationError('Must Authenticate')
       }
