@@ -6,7 +6,7 @@ const verifyToken = require('./middlewares/verifyToken')
 app.use(cors())
 app.use(express.json())
 app.use(verifyToken)
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log('server listening')
 })
 
