@@ -37,7 +37,7 @@ module.exports.resolver = {
         ? await jwt.sign({ _id: data.user._id }, 'mentorkodingpw')
         : ''
     },
-    search: async (parent, { skill }) => {
+    search: async (parent, { skill }, context) => {
       if (context.data) {
         const { data } = await axios.post(`${userApi}/user/search`, { skill })
         return data
