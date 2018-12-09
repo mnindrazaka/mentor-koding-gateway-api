@@ -39,7 +39,10 @@ module.exports.resolver = {
     },
     search: async (parent, { skill }, context) => {
       if (context.data) {
-        const { data } = await axios.post(`${userApi}/user/search`, { skill })
+        const { data } = await axios.post(`${userApi}/user/search`, {
+          skill,
+          userId: context.data
+        })
         return data
       } else {
         throw new AuthenticationError('Must Authenticate')
