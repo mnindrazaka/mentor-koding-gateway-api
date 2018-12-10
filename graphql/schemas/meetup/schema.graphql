@@ -3,6 +3,7 @@ type Meetup {
   topic: String
   mentor: User
   student: User
+  isMentor: Boolean
   datetime: String
   lat: Float
   lng: Float
@@ -37,4 +38,5 @@ type Query {
 type Mutation {
   createMeetup(meetup: MeetupInput!): Meetup
   updateMeetup(meetup: MeetupUpdate!, _id: ID!): Meetup
+  deleteMeetup(_id: ID!): Meetup
 }

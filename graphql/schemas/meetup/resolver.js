@@ -15,10 +15,11 @@ function filterMeetups(meetups, isConfirmed, userId) {
   })
 }
 
-function includeUserData(meetups) {
+function includeUserData(meetups, userId) {
   return meetups.map(async meetup => {
     meetup.student = await getUser(meetup.studentId)
     meetup.mentor = await getUser(meetup.mentorId)
+    meetup.isMentor = userId == meetup.mentorId
     return meetup
   })
 }
@@ -33,7 +34,7 @@ module.exports.resolver = {
       if (context.data) {
         const { data } = await axios.get(`${meetupApi}/meetup`)
         const filteredMeetup = filterMeetups(data, isConfirmed, context.data)
-        return includeUserData(filteredMeetup)
+        return includeUserData(filteredMeetup, context.data)
       } else {
         throw new AuthenticationError('Must Authenticate')
       }
@@ -60,6 +61,14 @@ module.exports.resolver = {
     updateMeetup: async (parent, { meetup, _id }, context) => {
       if (context.data) {
         const { data } = axios.put(`${meetupApi}/meetup/${_id}`, { meetup })
+        return data
+      } else {
+        throw new AuthenticationError('Must Authenticate')
+      }
+    },
+    deleteMeetup: async (parent, { _id }, context) => {
+      if (context.data) {
+        const { data } = axios.delete(`${meetupApi}/meetup/${_id}`)
         return data
       } else {
         throw new AuthenticationError('Must Authenticate')
