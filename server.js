@@ -19,8 +19,7 @@ const context = require('./graphql/context')
 const server = new ApolloServer({
   typeDefs: schema,
   resolvers: resolver,
-  context,
-  uploads: true
+  context
 })
 
 server.applyMiddleware({ app, path: '/graphql' })
