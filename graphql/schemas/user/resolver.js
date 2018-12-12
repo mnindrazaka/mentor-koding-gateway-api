@@ -2,7 +2,6 @@ const axios = require('axios')
 const { userApi } = require('../../../config/api')
 const jwt = require('jsonwebtoken')
 const { AuthenticationError } = require('apollo-server-express')
-const fs = require('fs')
 
 module.exports.resolver = {
   Query: {
@@ -76,7 +75,7 @@ module.exports.resolver = {
     updateUserPic: async (parent, args) => {
       const { stream, filename, mimetype, encoding } = await args.file
       stream.on('data', function(data) {
-        fs.writeFileSync('uploads/profile/' + filename, data)
+        // upload to cloudinary
       })
       return { filename, mimetype, encoding }
     }

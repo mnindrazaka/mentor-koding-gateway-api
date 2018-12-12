@@ -6,7 +6,6 @@ const verifyToken = require('./middlewares/verifyToken')
 app.use(cors())
 app.use(express.json())
 app.use(verifyToken)
-app.use('/uploads/profile', express.static('uploads/profile/'))
 
 app.listen(process.env.PORT || 3000, () => {
   console.log('server listening')
