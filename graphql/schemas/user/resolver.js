@@ -71,13 +71,6 @@ module.exports.resolver = {
       } else {
         throw new AuthenticationError('Must Authenticate')
       }
-    },
-    updateUserPic: async (parent, args) => {
-      const { stream, filename, mimetype, encoding } = await args.file
-      stream.on('data', function(data) {
-        // upload to cloudinary
-      })
-      return { filename, mimetype, encoding }
     }
   }
 }
