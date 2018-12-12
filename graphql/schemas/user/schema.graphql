@@ -37,6 +37,12 @@ input UserUpdate {
   skills: [String]
 }
 
+type File {
+  filename: String!
+  mimetype: String!
+  encoding: String!
+}
+
 type Query {
   users: [User]
   user(_id: ID!): User
@@ -49,4 +55,5 @@ type Mutation {
   createUser(user: UserInput!): User
   deleteUser: User
   updateUser(user: UserUpdate!): User
+  updateUserPic(file: Upload!): File!
 }
