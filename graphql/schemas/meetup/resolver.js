@@ -7,10 +7,15 @@ function filterMeetups(meetups, isConfirmed, userId) {
     if (isConfirmed) {
       return (
         meetup.isConfirmed == true &&
-        (meetup.mentorId == userId || meetup.studentId == userId)
+        (meetup.mentorId == userId || meetup.studentId == userId) &&
+        !meetup.isFinished
       )
     } else {
-      return meetup.isConfirmed == false && meetup.mentorId == userId
+      return (
+        meetup.isConfirmed == false &&
+        meetup.mentorId == userId &&
+        !meetup.isFinished
+      )
     }
   })
 }
