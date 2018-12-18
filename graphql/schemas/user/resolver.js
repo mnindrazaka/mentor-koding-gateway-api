@@ -13,7 +13,7 @@ module.exports.resolver = {
         throw new AuthenticationError('Must Authenticate')
       }
     },
-    user: async (parent, { _id }) => {
+    user: async (parent, { _id }, context) => {
       if (context.data) {
         const { data } = await axios.get(`${userApi}/user/${_id}`)
         return data
